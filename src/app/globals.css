@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-turquoise: #1FB4B4;
+  --color-black: #1A1A1A;
+  
+  --font-serif: var(--font-cormorant-garamond), serif;
+  --font-sans: var(--font-inter), sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-black);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
