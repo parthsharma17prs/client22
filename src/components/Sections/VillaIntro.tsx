@@ -12,6 +12,7 @@ export default function VillaIntro() {
     const { isLoaded } = useImagePreloader({
         folder: "sequence-1",
         frameCount: 400,
+        startFrame: 300,
         sequenceMap,
         extension: "jpg",
         padLength: 5,
@@ -25,7 +26,7 @@ export default function VillaIntro() {
 
     return (
         <div className="relative">
-            <CanvasScroll sequenceMap={sequenceMap} frameCount={400}>
+            <CanvasScroll sequenceMap={sequenceMap} frameCount={400} startFrame={300}>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                     <motion.div
                         style={{ scale: textScale, opacity: textOpacity }}

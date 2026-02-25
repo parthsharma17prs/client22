@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useScroll, useSpring } from "framer-motion";
 
 interface CanvasScrollProps {
     sequenceMap: Map<number, HTMLImageElement>;
     frameCount: number;
+    startFrame?: number;
     children?: React.ReactNode;
 }
 
-export default function CanvasScroll({ sequenceMap, frameCount, children }: CanvasScrollProps) {
+export default function CanvasScroll({ sequenceMap, frameCount, startFrame = 1, children }: CanvasScrollProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -58,17 +59,17 @@ export default function CanvasScroll({ sequenceMap, frameCount, children }: Canv
 
         // Render initial frame
         if (sequenceMap.size > 0) {
-            renderFrame(1);
+            renderFrame(startFrame);
         }
 
         const unsub = smoothProgress.on("change", (latest) => {
-            const frameIndex = Math.max(1, Math.floor(latest * (frameCount - 1)) + 1);
+            const frameIndex = startFrame + Math.max(0, Math.floor(latest * (frameCount - 1)));
             renderFrame(frameIndex);
         });
 
         const handleResize = () => {
             const latest = smoothProgress.get();
-            const frameIndex = Math.max(1, Math.floor(latest * (frameCount - 1)) + 1);
+            const frameIndex = startFrame + Math.max(0, Math.floor(latest * (frameCount - 1)));
             renderFrame(frameIndex);
         };
 
@@ -78,7 +79,7 @@ export default function CanvasScroll({ sequenceMap, frameCount, children }: Canv
             unsub();
             window.removeEventListener("resize", handleResize);
         };
-    }, [smoothProgress, sequenceMap, frameCount]);
+    }, [smoothProgress, sequenceMap, frameCount, startFrame]);
 
     return (
         <div ref={containerRef} className="relative w-full h-[400vh]">

@@ -11,6 +11,7 @@ export default function Hero() {
     const { progress, isLoaded } = useImagePreloader({
         folder: "sequence-1",
         frameCount: 400,
+        startFrame: 300,
         sequenceMap,
         extension: "jpg",
         padLength: 5,
@@ -43,7 +44,7 @@ export default function Hero() {
 
     return (
         <div className="relative">
-            <CanvasScroll sequenceMap={sequenceMap} frameCount={400}>
+            <CanvasScroll sequenceMap={sequenceMap} frameCount={400} startFrame={300}>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                     <motion.div
                         style={{ opacity: waitingOpacity }}

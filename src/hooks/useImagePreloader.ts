@@ -6,11 +6,12 @@ interface PreloadOptions {
     sequenceMap: Map<number, HTMLImageElement>;
     folder: string;
     frameCount: number;
+    startFrame?: number;
     extension?: string;
     padLength?: number;
 }
 
-export function useImagePreloader({ folder, frameCount, sequenceMap, extension = "jpg", padLength = 3 }: PreloadOptions) {
+export function useImagePreloader({ folder, frameCount, sequenceMap, startFrame = 1, extension = "jpg", padLength = 3 }: PreloadOptions) {
     const [progress, setProgress] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -19,12 +20,13 @@ export function useImagePreloader({ folder, frameCount, sequenceMap, extension =
         const loadOrder: number[] = [];
 
         // Progressive loading strategy: Load every 5th frame first (0, 5, 10...)
-        for (let i = 1; i <= frameCount; i += 5) {
+        for (let i = startFrame; i < startFrame + frameCount; i += 5) {
             loadOrder.push(i);
         }
         // Then load the rest
-        for (let i = 1; i <= frameCount; i++) {
-            if (i % 5 !== 1) { // 1 based indexing for 1, 6, 11...
+        for (let i = startFrame; i < startFrame + frameCount; i++) {
+            const offset = i - startFrame;
+            if (offset % 5 !== 0) {
                 loadOrder.push(i);
             }
         }
@@ -60,7 +62,7 @@ export function useImagePreloader({ folder, frameCount, sequenceMap, extension =
             loadNext(i);
         }
 
-    }, [folder, frameCount, sequenceMap, extension]);
+    }, [folder, frameCount, sequenceMap, startFrame, extension]);
 
     return { progress, isLoaded };
 }
