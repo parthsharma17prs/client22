@@ -68,13 +68,17 @@ export default function Hero() {
                             The Travel Pods
                         </motion.div>
 
-                        {/* Capsule Outline */}
-                        <div className="w-[60px] h-[160px] md:w-[80px] md:h-[220px] border border-white/20 rounded-full overflow-hidden relative p-[3px]">
+                        {/* Horizontal Capsule Outline */}
+                        <div className="w-[200px] h-[50px] md:w-[320px] md:h-[60px] border border-white/20 rounded-full overflow-hidden relative p-[3px] flex items-center justify-center">
+                            {/* Text inside the Capsule using mix-blend to invert text color */}
+                            <span className="relative z-10 font-sans tracking-[0.3em] md:tracking-[0.4em] uppercase text-xs md:text-sm mix-blend-exclusion text-white">
+                                CAPSULES
+                            </span>
                             {/* Capsule Fill */}
                             <motion.div
-                                className="absolute bottom-[3px] left-[3px] right-[3px] bg-white rounded-full origin-bottom"
-                                initial={{ height: "0%" }}
-                                animate={{ height: `calc(${displayProgress}% - 6px)` }}
+                                className="absolute top-[3px] bottom-[3px] left-[3px] bg-white rounded-full origin-left"
+                                initial={{ width: "0%" }}
+                                animate={{ width: `calc(${displayProgress}% - 6px)` }}
                                 transition={{ ease: "circOut", duration: 0.3 }}
                             />
                         </div>
