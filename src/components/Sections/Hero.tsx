@@ -99,24 +99,64 @@ export default function Hero() {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                     <motion.div
                         style={{ opacity: textOpacity }}
-                        className="flex flex-col items-center justify-center"
+                        className="flex flex-col items-center justify-center mt-12"
                     >
+                        {/* New Element: Animated Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: preloaderDismissed ? 1 : 0, scale: preloaderDismissed ? 1 : 0.8 }}
+                            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                            className="px-6 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-md mb-8 flex items-center gap-3 shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                        >
+                            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                            <span className="text-orange-300 text-xs font-bold tracking-[0.3em] uppercase">Now Booking</span>
+                        </motion.div>
+
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 30 }}
                             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                            className="font-sans text-6xl md:text-[9rem] tracking-tight text-white mb-6 font-light drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                            className="font-serif text-7xl md:text-[11rem] tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-2 font-bold drop-shadow-[0_10px_30px_rgba(249,115,22,0.15)] uppercase"
                         >
                             Capsules
                         </motion.h1>
+
+                        {/* New Element: Subtitle */}
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
+                            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+                            className="font-sans font-bold text-xl md:text-3xl text-orange-100 mb-8 tracking-[0.4em] uppercase drop-shadow-lg"
+                        >
+                            The Edge of the World
+                        </motion.h2>
+
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
-                            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-                            className="font-sans font-light text-base md:text-lg text-white/90 leading-relaxed tracking-[0.1em] md:tracking-[0.2em] uppercase drop-shadow-md"
+                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                            className="font-sans font-bold text-xs md:text-base text-white/90 max-w-2xl leading-loose tracking-[0.2em] md:tracking-[0.3em] uppercase drop-shadow-md border-t border-b border-white/10 py-5 bg-black/20 backdrop-blur-sm rounded-3xl"
                         >
-                            Absolute isolation. Perfect luxury.
+                            Absolute isolation. Perfect luxury. A sanctuary disconnected from the noise of civilization.
                         </motion.p>
+
+                        {/* New Element: Hero Action Buttons */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
+                            transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+                            className="flex flex-col sm:flex-row items-center gap-6 mt-12"
+                        >
+                            <button className="bg-orange-500 text-black px-10 py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:scale-105 transition-all duration-500 shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                                Reserve Dates
+                            </button>
+                            <button className="flex items-center gap-3 text-white px-10 py-4 rounded-full border border-white/20 text-xs font-bold tracking-widest uppercase hover:bg-white/10 hover:border-white/50 transition-all backdrop-blur-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                Watch Film
+                            </button>
+                        </motion.div>
                     </motion.div>
 
                     <motion.div
