@@ -34,7 +34,7 @@ export default function ScrollingCards() {
                     {cards.map((card) => (
                         <div
                             key={card.id}
-                            className="group relative flex-shrink-0 w-[80vw] md:w-[600px] h-[55vh] md:h-[65vh] rounded-[2rem] overflow-hidden cursor-pointer bg-white/5 border border-white/10"
+                            className="group relative flex-shrink-0 w-[90vw] md:w-[80vw] lg:w-[70vw] h-[65vh] md:h-[80vh] rounded-[3rem] overflow-hidden cursor-pointer bg-white/5 border border-white/10"
                         >
                             {/* Background Image using preloader assets as reference images */}
                             <div

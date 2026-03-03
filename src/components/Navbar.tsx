@@ -2,51 +2,67 @@
 
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Link from 'next/link';
 
 export default function Navbar() {
     const { scrollY } = useScroll();
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isDarkBg, setIsDarkBg] = useState(true); // true means text should be white, false means text should be black
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        // Blur effect after 100vh
-        if (latest > window.innerHeight) {
+        if (latest > 50) {
             if (!isScrolled) setIsScrolled(true);
         } else {
             if (isScrolled) setIsScrolled(false);
         }
-
-        // Color swap logic based on approximate scroll position where the sequence transitions
-        // For now we'll simulate it based on scroll ranges
-        if (latest > window.innerHeight * 2 && latest < window.innerHeight * 4) {
-            setIsDarkBg(false); // Day shots, text black
-        } else {
-            setIsDarkBg(true); // Sunset/dark shots, text white
-        }
     });
 
     return (
-        <motion.nav
-            className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-10 py-6 transition-colors duration-500 ${isScrolled ? "backdrop-blur-xl bg-black/10" : "bg-transparent"
-                } ${isDarkBg ? "text-white" : "text-black"}`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-            <div className="font-serif text-2xl tracking-[0.2em] uppercase font-semibold">
-                The Travel Pods
-            </div>
-            <div className="flex items-center gap-8">
-                <a href="#destinations" className="text-sm font-medium tracking-widest hover:opacity-75 transition-opacity">
-                    DESTINATIONS
-                </a>
-                <a href="#villas" className="text-sm font-medium tracking-widest hover:opacity-75 transition-opacity">
-                    VILLAS
-                </a>
-                <button className="bg-turquoise text-white px-6 py-2.5 text-sm font-bold tracking-widest uppercase transition-all hover:bg-turquoise/80 hover:scale-105 active:scale-95 border border-white/20">
-                    Book Now
-                </button>
-            </div>
-        </motion.nav>
+        <div className="fixed top-6 left-0 right-0 w-full z-50 flex justify-center px-4">
+            <motion.nav
+                className={`rounded-full px-6 py-3 w-full max-w-7xl transition-all duration-500 flex items-center justify-between border ${isScrolled
+                    ? "backdrop-blur-2xl bg-white/10 border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
+                    : "bg-white/10 backdrop-blur-xl border-white/20 shadow-lg"
+                    }`}
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+                {/* Logo Section */}
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black font-serif italic text-xl font-bold group-hover:scale-105 transition-transform">
+                        T
+                    </div>
+                    <span className="text-white font-serif tracking-widest text-lg font-bold group-hover:text-white/80 transition-colors">
+                        TRAVEL CO.
+                    </span>
+                </Link>
+
+                {/* Links */}
+                <div className="hidden lg:flex items-center justify-center gap-8 text-white text-xs font-bold tracking-widest uppercase font-sans flex-1 ml-16">
+                    {["Home", "About", "Dates", "Travel", "Gallery", "Contact", "Support"].map((item) => (
+                        <Link
+                            key={item}
+                            href={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}
+                            className={`hover:text-white/70 transition-colors relative pb-1 ${item === "Home"
+                                    ? "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-white"
+                                    : "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-white after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300"
+                                }`}
+                        >
+                            {item}
+                        </Link>
+                    ))}
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-6 font-sans">
+                    <Link href="/login" className="text-white text-sm font-bold tracking-wider hover:text-white/70 transition-colors">
+                        Login
+                    </Link>
+                    <Link href="/reserve" className="bg-white text-black px-7 py-2.5 rounded-full text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all">
+                        Reserve
+                    </Link>
+                </div>
+            </motion.nav>
+        </div>
     );
 }
