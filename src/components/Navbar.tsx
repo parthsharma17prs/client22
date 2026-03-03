@@ -32,8 +32,8 @@ export default function Navbar() {
                     <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black font-serif italic text-xl font-bold group-hover:scale-105 transition-transform">
                         T
                     </div>
-                    <span className="text-white font-serif tracking-widest text-lg font-bold group-hover:text-white/80 transition-colors">
-                        TRAVEL CO.
+                    <span className="text-white font-serif tracking-widest text-lg font-bold group-hover:text-white/80 transition-colors uppercase">
+                        Our Capsules
                     </span>
                 </Link>
 
@@ -43,9 +43,9 @@ export default function Navbar() {
                         <Link
                             key={item}
                             href={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}
-                            className={`hover:text-white/70 transition-colors relative pb-1 ${item === "Home"
-                                    ? "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-white"
-                                    : "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-white after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300"
+                            className={`hover:text-orange-400 transition-colors relative pb-1 ${item === "Home"
+                                    ? "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-orange-400"
+                                    : "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-orange-400 after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:duration-300"
                                 }`}
                         >
                             {item}
@@ -55,10 +55,10 @@ export default function Navbar() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-6 font-sans">
-                    <Link href="/login" className="text-white text-sm font-bold tracking-wider hover:text-white/70 transition-colors">
+                    <Link href="/login" className="text-white text-sm font-bold tracking-wider hover:text-orange-400 transition-colors">
                         Login
                     </Link>
-                    <Link href="/reserve" className="bg-white text-black px-7 py-2.5 rounded-full text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all">
+                    <Link href="/reserve" className="bg-white text-black px-7 py-2.5 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:bg-orange-500 hover:text-white hover:scale-105 hover:shadow-[0_0_20px_rgba(249,115,22,0.4)] active:scale-95 transition-all duration-300">
                         Reserve
                     </Link>
                 </div>
