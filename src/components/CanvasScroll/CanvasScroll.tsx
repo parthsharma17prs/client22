@@ -13,29 +13,46 @@ interface CanvasScrollProps {
 export default function CanvasScroll({ sequenceMap, frameCount, startFrame = 1, children }: CanvasScrollProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const frameIndexRef = useRef<number>(startFrame);
+    const animationFrameId = useRef<number>();
 
-    const { scrollYProgress } = useScroll({ target: containerRef });
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    // Using a more "lush" spring for the scroll progress
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 40,
+        damping: 20,
+        restDelta: 0.0001
+    });
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { alpha: false }); // Better performance
         if (!ctx) return;
+
+        const updateCanvasSize = () => {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+
+            // Re-render current frame on resize
+            renderFrame(frameIndexRef.current);
+        };
 
         const renderFrame = (index: number) => {
             const img = sequenceMap.get(index);
-            if (!img) return;
-
-            const dpr = window.devicePixelRatio || 1;
-            // We set canvas internal dimensions to match screen pixels
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
+            if (!img || !ctx) return;
 
             const cw = canvas.width;
             const ch = canvas.height;
 
-            ctx.clearRect(0, 0, cw, ch);
+            // Clear isn't strictly necessary if we cover the whole canvas
+            // but helps with alpha issues if they exist
+            // ctx.clearRect(0, 0, cw, ch);
 
             const imgRatio = img.width / img.height;
             const canvasRatio = cw / ch;
@@ -54,42 +71,43 @@ export default function CanvasScroll({ sequenceMap, frameCount, startFrame = 1, 
                 offsetY = (ch - drawHeight) / 2;
             }
 
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
             ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
         };
 
-        // Render initial frame
-        if (sequenceMap.size > 0) {
-            renderFrame(startFrame);
-        }
-
-        const unsub = smoothProgress.on("change", (latest) => {
-            const frameIndex = startFrame + Math.max(0, Math.floor(latest * (frameCount - 1)));
-            renderFrame(frameIndex);
-        });
-
-        const handleResize = () => {
+        const loop = () => {
             const latest = smoothProgress.get();
-            const frameIndex = startFrame + Math.max(0, Math.floor(latest * (frameCount - 1)));
-            renderFrame(frameIndex);
+            const targetFrame = startFrame + Math.max(0, Math.floor(latest * (frameCount - 1)));
+
+            if (targetFrame !== frameIndexRef.current) {
+                frameIndexRef.current = targetFrame;
+                renderFrame(targetFrame);
+            }
+
+            animationFrameId.current = requestAnimationFrame(loop);
         };
 
-        window.addEventListener("resize", handleResize);
+        updateCanvasSize();
+        window.addEventListener("resize", updateCanvasSize);
+        animationFrameId.current = requestAnimationFrame(loop);
 
         return () => {
-            unsub();
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", updateCanvasSize);
+            if (animationFrameId.current) {
+                cancelAnimationFrame(animationFrameId.current);
+            }
         };
     }, [smoothProgress, sequenceMap, frameCount, startFrame]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-[400vh]">
+        <div ref={containerRef} className="relative w-full h-[500vh]">
             <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0 w-full h-full object-cover"
                 />
-                {/* We can have an overlay for legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
                 {children}
             </div>
         </div>

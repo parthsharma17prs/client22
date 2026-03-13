@@ -103,30 +103,42 @@ export default function Hero() {
                     >
                         {/* New Element: Animated Badge */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: preloaderDismissed ? 1 : 0, scale: preloaderDismissed ? 1 : 0.8 }}
-                            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                            className="px-6 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-md mb-8 flex items-center gap-3 shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                            animate={{
+                                opacity: preloaderDismissed ? 1 : 0,
+                                scale: preloaderDismissed ? 1 : 0.9,
+                                filter: preloaderDismissed ? "blur(0px)" : "blur(10px)"
+                            }}
+                            transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            className="px-6 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-md mb-8 flex items-center gap-3 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
                         >
-                            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                            <span className="text-orange-300 text-xs font-bold tracking-[0.3em] uppercase">Now Booking</span>
+                            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.8)]" />
+                            <span className="text-orange-300 text-xs font-bold tracking-[0.4em] uppercase">Now Booking</span>
                         </motion.div>
 
                         <motion.h1
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 30 }}
-                            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                            className="font-serif text-7xl md:text-[11rem] tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-2 font-bold drop-shadow-[0_10px_30px_rgba(249,115,22,0.15)] uppercase"
+                            initial={{ opacity: 0, y: 50, filter: "blur(20px)" }}
+                            animate={{
+                                opacity: preloaderDismissed ? 1 : 0,
+                                y: preloaderDismissed ? 0 : 50,
+                                filter: preloaderDismissed ? "blur(0px)" : "blur(20px)"
+                            }}
+                            transition={{ duration: 1.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            className="font-serif text-7xl md:text-[12rem] tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 mb-2 font-bold drop-shadow-[0_10px_30px_rgba(249,115,22,0.2)] uppercase leading-none"
                         >
                             Capsules
                         </motion.h1>
 
                         {/* New Element: Subtitle */}
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
-                            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                            className="font-sans font-bold text-xl md:text-3xl text-orange-100 mb-8 tracking-[0.4em] uppercase drop-shadow-lg"
+                            initial={{ opacity: 0, y: 30, letterSpacing: "1em" }}
+                            animate={{
+                                opacity: preloaderDismissed ? 1 : 0,
+                                y: preloaderDismissed ? 0 : 30,
+                                letterSpacing: "0.4em"
+                            }}
+                            transition={{ duration: 1.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="font-sans font-bold text-xl md:text-3xl text-orange-200 mb-8 tracking-[0.4em] uppercase drop-shadow-xl"
                         >
                             The Edge of the World
                         </motion.h2>
@@ -134,8 +146,8 @@ export default function Hero() {
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
-                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                            className="font-sans font-bold text-xs md:text-base text-white/90 max-w-2xl leading-loose tracking-[0.2em] md:tracking-[0.3em] uppercase drop-shadow-md border-t border-b border-white/10 py-5 bg-black/20 backdrop-blur-sm rounded-3xl"
+                            transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+                            className="font-sans font-bold text-xs md:text-base text-white/80 max-w-2xl leading-loose tracking-[0.2em] md:tracking-[0.3em] uppercase drop-shadow-md border-t border-b border-white/5 py-8 bg-black/30 backdrop-blur-xl rounded-[2rem] px-8"
                         >
                             Absolute isolation. Perfect luxury. A sanctuary disconnected from the noise of civilization.
                         </motion.p>
@@ -144,35 +156,35 @@ export default function Hero() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: preloaderDismissed ? 1 : 0, y: preloaderDismissed ? 0 : 20 }}
-                            transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
-                            className="flex flex-col sm:flex-row items-center gap-6 mt-12"
+                            transition={{ duration: 1.2, delay: 1.1, ease: "easeOut" }}
+                            className="flex flex-col sm:flex-row items-center gap-8 mt-16"
                         >
-                            <button className="bg-orange-500 text-black px-10 py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:scale-105 transition-all duration-500 shadow-[0_0_20px_rgba(249,115,22,0.4)]">
-                                Reserve Dates
+                            <button className="bg-orange-500 text-black px-12 py-5 rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:scale-105 transition-all duration-700 shadow-[0_10px_40px_rgba(249,115,22,0.4)] group">
+                                <span className="group-hover:tracking-[0.3em] transition-all duration-700">Reserve Dates</span>
                             </button>
-                            <button className="flex items-center gap-3 text-white px-10 py-4 rounded-full border border-white/20 text-xs font-bold tracking-widest uppercase hover:bg-white/10 hover:border-white/50 transition-all backdrop-blur-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                            <button className="flex items-center gap-3 text-white px-12 py-5 rounded-full border border-white/10 text-xs font-bold tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white/30 transition-all duration-700 backdrop-blur-2xl group">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-orange-400 group-hover:scale-125 transition-all duration-700" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
-                                Watch Film
+                                <span className="group-hover:tracking-[0.3em] transition-all duration-700">Watch Film</span>
                             </button>
                         </motion.div>
                     </motion.div>
 
                     <motion.div
                         style={{ opacity: scrollIndicatorOpacity }}
-                        className="absolute bottom-12 flex flex-col items-center"
+                        className="absolute bottom-16 flex flex-col items-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: preloaderDismissed ? 1 : 0 }}
-                        transition={{ delay: 1, duration: 1 }}
+                        transition={{ delay: 1.5, duration: 1.5 }}
                     >
-                        <div className="text-[9px] tracking-[0.3em] uppercase text-white/80 mb-4">Discover</div>
-                        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+                        <div className="text-[10px] tracking-[0.5em] uppercase text-white/50 mb-6 font-bold">Discover</div>
+                        <div className="w-[1.5px] h-20 bg-white/5 relative overflow-hidden rounded-full">
                             <motion.div
-                                className="w-full h-full bg-white absolute top-0 left-0"
+                                className="w-full h-1/2 bg-gradient-to-b from-transparent via-orange-500 to-transparent absolute top-0 left-0"
                                 initial={{ y: "-100%" }}
-                                animate={{ y: "100%" }}
-                                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                                animate={{ y: "200%" }}
+                                transition={{ repeat: Infinity, duration: 2.5, ease: [0.45, 0, 0.55, 1] }}
                             />
                         </div>
                     </motion.div>
